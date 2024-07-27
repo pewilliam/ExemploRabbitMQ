@@ -14,7 +14,7 @@
           <archive>
             <manifest>
               <mainClass>
-                br.ufs.dcomp.ExemploRabbitMQ.Queues
+                br.ufs.dcomp.ExemploRabbitMQ.Emissor
               </mainClass>
             </manifest>
           </archive>

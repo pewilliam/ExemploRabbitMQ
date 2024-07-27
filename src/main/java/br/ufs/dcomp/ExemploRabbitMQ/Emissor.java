@@ -1,7 +1,5 @@
 package br.ufs.dcomp.ExemploRabbitMQ;
 
-import java.util.Scanner;
-
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -13,8 +11,6 @@ public class Emissor {
   private static String message;
 
   public static void main(String[] argv) throws Exception {
-    Scanner sc = new Scanner(System.in);
-    
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost("34.228.100.244"); // Alterar
     factory.setUsername("admin"); // Alterar
@@ -22,25 +18,18 @@ public class Emissor {
     factory.setVirtualHost("/");    Connection connection = factory.newConnection();
     Channel channel = connection.createChannel();
 
-    while (true) {
+    message = "Olá, ímpares!";
+                      //  (exchange, routingKey, props, message-body             ); 
+    channel.basicPublish("E1",       QUEUE_NAME, null,  message.getBytes("UTF-8"));
     
-                        //(queue-name, durable, exclusive, auto-delete, params); 
-      channel.queueDeclare(QUEUE_NAME, false,   false,     false,       null);
-  
-      System.out.print("Mensagem: ");
-      message = sc.nextLine();
-      
-      if(message.equalsIgnoreCase("sair")){
-        break;
-      }
-      else{
-                        //  (exchange, routingKey, props, message-body             ); 
-      channel.basicPublish("",       QUEUE_NAME, null,  message.getBytes("UTF-8"));
-      System.out.println(" [x] Mensagem enviada: '" + message + "'");
-      }
-    }
-
-    sc.close();
+    System.out.println(" [x] Mensagem enviada: '" + message + "'");
+    
+    message = "Olá, pares!";
+                      //  (exchange, routingKey, props, message-body             ); 
+    channel.basicPublish("E2",       "A", null,  message.getBytes("UTF-8"));
+    
+    System.out.println(" [x] Mensagem enviada: '" + message + "'");
+    
     channel.close();
     connection.close();
   }
