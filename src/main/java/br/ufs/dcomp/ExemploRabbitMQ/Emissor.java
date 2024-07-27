@@ -24,9 +24,15 @@ public class Emissor {
     
     System.out.println(" [x] Mensagem enviada: '" + message + "'");
     
-    message = "Olá, pares!";
+    message = "Olá, pares A!";
                       //  (exchange, routingKey, props, message-body             ); 
     channel.basicPublish("E2",       "A", null,  message.getBytes("UTF-8"));
+    
+    System.out.println(" [x] Mensagem enviada: '" + message + "'");
+    
+    message = "Olá, pares B!";
+                      //  (exchange, routingKey, props, message-body             ); 
+    channel.basicPublish("E2",       "B", null,  message.getBytes("UTF-8"));
     
     System.out.println(" [x] Mensagem enviada: '" + message + "'");
     
